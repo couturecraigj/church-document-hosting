@@ -60,3 +60,14 @@ server
   });
 
 export default server;
+
+if (require.main === module) {
+  const app = require("http").createServer(server);
+  app.listen(process.env.PORT || 3000, error => {
+    if (error) {
+      console.log(error);
+    }
+
+    console.log("🚀 started");
+  });
+}
