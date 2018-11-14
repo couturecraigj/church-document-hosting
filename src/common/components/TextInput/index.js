@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Label = styled.label`
   padding: 2px;
+  font-weight: bold;
 `;
 
 const Input = styled.input`

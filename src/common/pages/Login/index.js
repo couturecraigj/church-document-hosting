@@ -8,7 +8,20 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
-        <Formik onSubmit={console.log} initialValues={{ userName: "", password: "" }}>
+        <Formik
+          onSubmit={values =>
+            fetch("/api/login", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+                // "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: JSON.stringify(values)
+            })
+          }
+          initialValues={{ userName: "", password: "" }}
+        >
           <Form>
             <ul className="Login-resources">
               <Field name="userName">
@@ -33,6 +46,8 @@ class Login extends React.Component {
                   />
                 )}
               </Field>
+
+              <Button type="button" label="Cancel" />
               <Button type="submit" label="Submit" />
             </ul>
           </Form>

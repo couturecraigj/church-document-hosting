@@ -8,7 +8,17 @@ class SignUp extends React.Component {
   render() {
     return (
       <Formik
-        onSubmit={console.log}
+        onSubmit={values =>
+          fetch("/api/signup", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+              // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: JSON.stringify(values)
+          })
+        }
         initialValues={{ userName: "", password: "", confirmPassword: "" }}
       >
         <Form>
@@ -45,6 +55,7 @@ class SignUp extends React.Component {
               />
             )}
           </Field>
+          <Button type="button" label="Cancel" />
           <Button type="submit" label="Submit" />
         </Form>
       </Formik>

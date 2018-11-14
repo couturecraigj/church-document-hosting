@@ -1,4 +1,5 @@
 import App from "../common/App";
+import api from "./api";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { StaticRouter } from "react-router-dom";
@@ -11,6 +12,7 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 server
   .disable("x-powered-by")
+  .use("/api", api)
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get("/*", (req, res) => {
     const context = {};
