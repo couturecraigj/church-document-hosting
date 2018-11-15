@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./crown-of-thorns.1.svg";
+import Logo from "./logo.js";
 import NavLink from "react-router-dom/NavLink";
 import { Helmet } from "react-helmet";
 import "./Layout.css";
@@ -26,12 +26,14 @@ const Layout = ({ children }) => {
           />
           <title>Home</title>
         </Helmet>
+
         <div className="Layout-header">
           <NavLink to="/" exact className="Logo-link">
             {/* <div>
             <span>Home</span>
           </div> */}
-            <img src={logo} className="Layout-logo" alt="logo" />
+            <Logo />
+            {/* <img src={Logo} className="Layout-logo" alt="logo" /> */}
           </NavLink>
           <h2>Welcome to Church's Website</h2>
           <div className="Layout-navlinks">

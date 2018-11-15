@@ -348,10 +348,18 @@ body {
 .Layout-logo {
   animation: Layout-logo-spin infinite 20s linear;
   position: relative;
-  fill: #555;
+  fill: #bd221d;
   height: 80px;
-  filter: drop-shadow(0px 0 5px #717623);
+  filter: drop-shadow(0 0 3px #000000);
   /* border: 1px solid black; */
+}
+
+.Layout-logo path {
+  /* stroke: #000; */
+}
+
+body {
+  color: #252525;
 }
 
 .Logo-link div {
@@ -366,7 +374,7 @@ body {
 }
 
 .Layout-header {
-  background-color: #888;
+  background: linear-gradient(125deg, #534d3b, #757163 20%, #757163 80%, #534d3b);
   /* height: 150px; */
   padding: 20px;
   margin-bottom: 1em;
@@ -375,7 +383,8 @@ body {
 }
 
 .Layout-header h2 {
-  filter: drop-shadow(0px 0 10px #763c23);
+  filter: drop-shadow(0px 0 10px #ad9f99);
+
 }
 
 .Layout-header a {
@@ -387,13 +396,12 @@ body {
 }
 
 .Layout-header a:not(.Link) {
-  filter: drop-shadow(0px 0 10px #763c23);
+  filter: drop-shadow(0px 0 10px #af9f98);
 }
 
 .Layout-header .Link {
-  /* -webkit-filter: drop-shadow(0px 0px 5px #000);
-  filter: drop-shadow(0px 0px 5px #000); */
-  text-shadow: 0px 0px 15px #000;
+  filter: drop-shadow(0px 0px 5px #000);
+  text-shadow: 0px 0px 15px rgb(248, 213, 213);
 }
 
 .Layout-navlinks {
