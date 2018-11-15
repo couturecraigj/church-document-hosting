@@ -358,6 +358,14 @@ body {
   /* stroke: #000; */
 }
 
+a {
+  color: #524949
+}
+
+a:visited {
+  color: #685f5f
+}
+
 body {
   color: #252525;
 }
