@@ -9,7 +9,7 @@ class AddToHomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: navigator.standalone === false
+      visible: typeof window === "undefined" ? false : navigator.standalone === false
       // visible: true
     };
   }
