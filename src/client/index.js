@@ -12,8 +12,6 @@ window.addEventListener("beforeinstallprompt", e => {
   deferredPrompt.prompt();
 });
 
-setTimeout(() => window.addToHomescreen(), 1000);
-
 window.addEventListener("appinstalled", evt => {
   console.log(evt);
 });

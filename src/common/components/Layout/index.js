@@ -2,7 +2,6 @@ import React from "react";
 import logo from "./crown-of-thorns.1.svg";
 import NavLink from "react-router-dom/NavLink";
 import { Helmet } from "react-helmet";
-import AddToHomeScreen from "@rajatsehgal/add-to-home-screen/AddToHomeScreen";
 import "./Layout.css";
 
 const Layout = ({ children }) => {
@@ -48,7 +47,6 @@ const Layout = ({ children }) => {
           </div>
         </div>
         {children}
-        <AddToHomeScreen />
       </React.Fragment>
     </div>
   );

@@ -15,8 +15,8 @@ const App = ({ install }) => (
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={SignUp} />
       <Route exact path="/downloads" component={Downloads} />
-      <AddToHomeScreen />
     </Switch>
+    <AddToHomeScreen />
   </Layout>
 );
 

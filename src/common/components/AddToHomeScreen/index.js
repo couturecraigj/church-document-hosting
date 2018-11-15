@@ -10,6 +10,7 @@ class AddToHomeScreen extends Component {
     super(props);
     this.state = {
       visible: navigator.standalone === false
+      // visible: true
     };
   }
 
@@ -44,6 +45,7 @@ class AddToHomeScreen extends Component {
           Install this web app on your iPhone for the best experience. It's easy, just
           tap
           <img
+            alt="ios share button"
             style={{ verticalAlign: "top" }}
             src={`data:image/png;base64,${iOSShareBase64}`}
           />{" "}
@@ -84,6 +86,7 @@ class AddToHomeScreen extends Component {
             padding: 5,
             cursor: "pointer"
           }}
+          alt="ios close button"
           src={`data:image/png;base64,${closeBase64}`}
           onClick={this.handleClose}
         />
