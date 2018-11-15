@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1";
+const CACHE_NAME = "v2";
 
 self.addEventListener("activate", function(event) {
   var cacheKeeplist = [CACHE_NAME];
