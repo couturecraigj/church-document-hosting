@@ -12,18 +12,8 @@ const Layout = ({ children }) => {
           <meta charSet="utf-8" />
           <link rel="icon" href="/favicon.ico?v=1234" type="image/x-icon" />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
-          <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png" />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="touch-icon-iphone-retina.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="167x167"
-            href="touch-icon-ipad-retina.png"
-          />
+          <link rel="apple-touch-icon" sizes="114x114" href="/images/icons-114.png" />
+          <link rel="apple-touch-icon" sizes="144x144" href="/images/icons-144.png" />
           <title>Home</title>
         </Helmet>
 
