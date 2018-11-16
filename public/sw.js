@@ -1,4 +1,4 @@
-const CACHE_NAME = "v2";
+const CACHE_NAME = "v3";
 
 self.addEventListener("activate", function(event) {
   var cacheKeeplist = [CACHE_NAME];
@@ -17,26 +17,26 @@ self.addEventListener("activate", function(event) {
 });
 
 self.addEventListener("install", function(event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll([]);
-    })
-  );
+  // event.waitUntil(
+  //   caches.open(CACHE_NAME).then(function(cache) {
+  //     return cache.addAll(["/", "/account/login", "/account/signup"]);
+  //   })
+  // );
 });
 
 self.addEventListener("fetch", function(event) {
-  event.respondWith(
-    caches.match(event.request).then(function(resp) {
-      console.log(resp);
-      return (
-        resp ||
-        fetch(event.request).then(function(response) {
-          return caches.open(CACHE_NAME).then(function(cache) {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-        })
-      );
-    })
-  );
+  // event.respondWith(
+  //   caches.match(event.request).then(function(resp) {
+  //     console.log(resp);
+  //     return (
+  //       resp ||
+  //       fetch(event.request).then(function(response) {
+  //         return caches.open(CACHE_NAME).then(function(cache) {
+  //           cache.put(event.request, response.clone());
+  //           return response;
+  //         });
+  //       })
+  //     );
+  //   })
+  // );
 });
