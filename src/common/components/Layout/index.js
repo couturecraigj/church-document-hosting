@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
       <React.Fragment>
         <Helmet titleTemplate="%s | Crossway Church of Keene, NH">
           <meta charSet="utf-8" />
-          <link rel="icon" href="/favicon.ico?v=1234" type="image/x-icon" />
+          <link rel="icon" href="/favicon.ico?v=12345" type="image/x-icon" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" sizes="114x114" href="/images/icons-114.png" />
           <link rel="apple-touch-icon" sizes="144x144" href="/images/icons-144.png" />

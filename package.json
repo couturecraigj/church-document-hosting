@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "razzle start",
-    "build": "razzle build",
+    "build": "npm run build:icons && razzle build",
+    "build:icons": "node utilities/build-icons.js",
     "test": "razzle test --env=jsdom",
     "heroku-postbuild": "npm run build",
     "start:prod": "NODE_ENV=production node build/server.js"
@@ -36,6 +37,8 @@
   },
   "homepage": "https://github.com/couturecraigj/church-document-hosting#readme",
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.8.0"
+    "babel-plugin-styled-components": "^1.8.0",
+    "png-to-ico": "^2.0.1",
+    "sharp": "^0.21.0"
   }
 }
