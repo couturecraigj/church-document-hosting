@@ -1,5 +1,5 @@
 import { Router } from "express";
-const cors = require("cors");
+import cors from "cors";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import signup from "./signup";
