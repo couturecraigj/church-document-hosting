@@ -63,8 +63,9 @@ const config = app => {
   });
   app.use((req, res, next) =>
     session({
-      secret: 'secret',
+      secret: process.env.SESSION_SECRET,
       name: 'sessionId',
+      resave: false,
       store: new SequelizeStore({
         db: req.db
       })
