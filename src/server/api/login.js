@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express';
 
 const app = Router();
 
-app.post("/", (req, res) => {
+app.post('/', (req, res) => {
   console.log(req.body);
 
   res.json(req.body);

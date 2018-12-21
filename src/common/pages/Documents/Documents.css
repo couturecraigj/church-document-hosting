@@ -1,0 +1,15 @@
+.Documents {
+  text-align: center;
+}
+
+.Documents-intro {
+  font-size: large;
+}
+
+.Documents li {
+  list-style-type: none;
+}
+
+.Documents ul {
+  padding-inline-start: 0;
+}

@@ -1,16 +1,14 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const Input = styled.button`
+const ClickableButton = styled.button`
   padding: 2px 9px;
   border-radius: 0.25em;
   margin: 0.125em;
 `;
 
-const Button = ({ label, name, placeholder, type }) => (
-  <Input name={name} placeholder={placeholder} type={type}>
-    {label}
-  </Input>
+const Button = ({ label, children, ...rest }) => (
+  <ClickableButton {...rest}>{children || label}</ClickableButton>
 );
 
 export default Button;

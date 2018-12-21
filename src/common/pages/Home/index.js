@@ -1,14 +1,5 @@
-import React from "react";
-import "./Home.css";
+import loadable from 'loadable-components';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div className="Home">
-        <p className="Home-intro">Welcome to our Church's download site</p>
-      </div>
-    );
-  }
-}
-
-export default Home;
+export default loadable(() =>
+  import(/* webpackChunkName: "home-page" */ './Home')
+);

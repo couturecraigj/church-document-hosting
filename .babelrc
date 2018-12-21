@@ -3,6 +3,8 @@
     "razzle/babel"
   ],
   "plugins": [
-    "babel-plugin-styled-components"
+    "babel-plugin-transform-class-properties",
+    "babel-plugin-styled-components",
+    "loadable-components/babel"
   ]
 }

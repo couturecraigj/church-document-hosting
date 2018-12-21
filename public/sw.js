@@ -1,6 +1,10 @@
-const CACHE_NAME = "v3";
+/* eslint-env serviceworker */
+/* global self */
+/* eslint-disable no-restricted-globals */
 
-self.addEventListener("activate", function(event) {
+const CACHE_NAME = 'v5';
+
+self.addEventListener('activate', function(event) {
   var cacheKeeplist = [CACHE_NAME];
 
   event.waitUntil(
@@ -16,7 +20,7 @@ self.addEventListener("activate", function(event) {
   );
 });
 
-self.addEventListener("install", function(event) {
+self.addEventListener('install', function(event) {
   // event.waitUntil(
   //   caches.open(CACHE_NAME).then(function(cache) {
   //     return cache.addAll(["/", "/account/login", "/account/signup"]);
@@ -24,7 +28,7 @@ self.addEventListener("install", function(event) {
   // );
 });
 
-self.addEventListener("fetch", function(event) {
+self.addEventListener('fetch', function(event) {
   // event.respondWith(
   //   caches.match(event.request).then(function(resp) {
   //     console.log(resp);
@@ -39,4 +43,28 @@ self.addEventListener("fetch", function(event) {
   //     );
   //   })
   // );
+});
+
+self.addEventListener('push', function(event) {
+  console.log('[Service Worker] Push Received.');
+  const { title, body } = event.data.json();
+
+  console.log(title, body);
+
+  // const title = 'Push Codelab';
+  const options = {
+    body,
+    icon: 'images/icon.png',
+    badge: 'images/badge.png'
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function(event) {
+  console.log('[Service Worker] Notification click Received.');
+
+  event.notification.close();
+
+  event.waitUntil(clients.openWindow('https://developers.google.com/web/'));
 });

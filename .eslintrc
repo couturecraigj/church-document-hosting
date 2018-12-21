@@ -1,0 +1,9 @@
+{
+  "extends": ["react-app"],
+  "rules": {
+    // modify default rules
+  }
+  // "globals": {
+  //   "__webpack_hash__": true
+  // }
+}

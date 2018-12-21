@@ -1,20 +1,42 @@
 {
-  "short_name": "Church Downloads",
-  "name": "Church Download App",
-  "icons": [{
-      "src": "/images/icons-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/images/icons-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "/",
-  "background_color": "#ab906c",
-  "display": "standalone",
-  "scope": "/",
-  "theme_color": "#820700"
+ "short_name": "Crossway",
+ "name": "Crossway Church of Keene, NH",
+ "icons": [
+  {
+   "src": "/images/icons-114.png",
+   "type": "image/png",
+   "sizes": "114x114"
+  },
+  {
+   "src": "/images/icons-144.png",
+   "type": "image/png",
+   "sizes": "144x144"
+  },
+  {
+   "src": "/images/icons-192.png",
+   "type": "image/png",
+   "sizes": "192x192"
+  },
+  {
+   "src": "/images/icons-512.png",
+   "type": "image/png",
+   "sizes": "512x512"
+  },
+  {
+   "src": "/images/icons-57.png",
+   "type": "image/png",
+   "sizes": "57x57"
+  },
+  {
+   "src": "/images/icons-72.png",
+   "type": "image/png",
+   "sizes": "72x72"
+  }
+ ],
+ "gcm_sender_id": "church-hosting-cd5a1",
+ "start_url": "/",
+ "background_color": "#ab906c",
+ "display": "standalone",
+ "scope": "/",
+ "theme_color": "#820700"
 }
