@@ -1,13 +1,15 @@
 import user from './user';
 import subscription from './subscription';
 import email from './email';
+import session from './session';
 import doc from './doc';
 
 const models = {
   User: user,
   Subscription: subscription,
   Doc: doc,
-  Email: email
+  Email: email,
+  Session: session
 };
 
 const configure = (sequelize, Sequelize) => {

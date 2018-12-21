@@ -67,7 +67,9 @@ const config = app => {
       name: 'sessionId',
       resave: false,
       store: new SequelizeStore({
-        db: req.db
+        db: req.db,
+        table: 'Session',
+        extendDefaultFields: req.db.models.Session.extendDefaultFields
       })
     })(req, res, next)
   );

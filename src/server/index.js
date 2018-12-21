@@ -10,7 +10,6 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import config from './config';
 import createClient from '../common/apollo';
-import app from './api';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const subscriptions = [];
