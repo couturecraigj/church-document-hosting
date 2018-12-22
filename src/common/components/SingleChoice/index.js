@@ -32,7 +32,7 @@ const Button = styled.label`
 const Input = styled.input`
   display: block;
   margin: 10px 0 20px 0;
-  max-width: 500px;
+  /* max-width: 500px; */
   padding: 10px 14px;
   font-size: 1em;
   /* font-family: 'Source Code Pro', monospace; */

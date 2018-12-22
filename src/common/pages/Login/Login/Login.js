@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { queryMe } from '../../../components/Layout';
 import TextInput from '../../../components/TextInput';
 import Button from '../../../components/Button';
+import Form from '../../../components/Form';
 import './Login.css';
 
 const LOGIN = gql`
@@ -55,7 +56,7 @@ class Login extends React.Component {
                   handleBlur,
                   handleSubmit
                 }) => (
-                  <form onSubmit={handleSubmit}>
+                  <Form onSubmit={handleSubmit}>
                     <TextInput
                       name="userName"
                       onChange={handleChange}
@@ -77,9 +78,11 @@ class Login extends React.Component {
                       type="password"
                     />
                     {error.message && <div>{JSON.stringify(error)}</div>}
-                    <Button type="button" label="Cancel" />
-                    <Button type="submit" label="Submit" disabled={loading} />
-                  </form>
+                    <div>
+                      <Button type="button" label="Cancel" />
+                      <Button type="submit" label="Submit" disabled={loading} />
+                    </div>
+                  </Form>
                 )}
               </Formik>
             );

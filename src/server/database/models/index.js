@@ -12,6 +12,10 @@ const models = {
   Session: session
 };
 
+/**
+ * TODO: Create Permission Sets
+ */
+
 const configure = (sequelize, Sequelize) => {
   Object.entries(models).forEach(([key, model]) => {
     models[key] = model(sequelize, Sequelize);

@@ -59,6 +59,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const config = app => {
   app.use(async (req, res, next) => {
     req.db = await dbPromise;
+    console.log('DATABASE CREATED');
     next();
   });
   app.use((req, res, next) =>

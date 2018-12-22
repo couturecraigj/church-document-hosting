@@ -6,11 +6,22 @@ import DatePicker from '../../components/DatePicker';
 import TextInput from '../../components/TextInput';
 import SingleChoice from '../../components/SingleChoice';
 import Checkbox from '../../components/Checkbox';
+import FormElement from '../../components/Form';
 
 const Label = styled.label`
   display: inline-block;
-  width: 400px;
-  text-align: center;
+  width: 100% !important;
+  /* text-align: center; */
+  & div {
+    width: 100% !important;
+  }
+  & iframe {
+    width: 100% !important;
+  }
+`;
+
+const Container = styled.div`
+  width: 100%;
 `;
 
 const ErrorMessage = styled.div``;
@@ -32,7 +43,6 @@ const Button = styled.button.attrs({ type: 'submit' })`
   letter-spacing: 0.025em;
   background-color: #6772e5;
   text-decoration: none;
-  -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
   margin-top: 10px;
   &:hover {
@@ -57,7 +67,7 @@ const Form = ({
   response,
   ...props
 }) => (
-  <form onSubmit={handleSubmit}>
+  <FormElement onSubmit={handleSubmit}>
     <TextInput
       onChange={handleChange}
       onBlur={handleBlur}
@@ -66,7 +76,6 @@ const Form = ({
       placeholder="Email"
       label="Email"
     />
-    {console.log(props)}
     <TextInput
       onChange={handleChange}
       onBlur={handleBlur}
@@ -78,12 +87,12 @@ const Form = ({
       type="number"
     />
 
-    <div>
+    <Container>
       <Label>
         Card details
         <CardElement style={{ base: { fontSize: '18px' } }} />
       </Label>
-    </div>
+    </Container>
 
     <Checkbox
       onChange={handleChange}
@@ -118,7 +127,7 @@ const Form = ({
     )}
     <Button disabled={isSubmitting}>Send Gift</Button>
     <ErrorMessage>{response}</ErrorMessage>
-  </form>
+  </FormElement>
 );
 
 export default withFormik({

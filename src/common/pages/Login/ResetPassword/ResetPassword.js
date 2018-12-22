@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 import { queryMe } from '../../../components/Layout';
 import TextInput from '../../../components/TextInput';
 import Button from '../../../components/Button';
+import Form from '../../../components/Form';
+
 import './ResetPassword.css';
 
 const RESET_PASSWORD = gql`
@@ -48,7 +50,7 @@ class ResetPassword extends React.Component {
                   handleBlur,
                   handleSubmit
                 }) => (
-                  <form onSubmit={handleSubmit}>
+                  <Form onSubmit={handleSubmit}>
                     <TextInput
                       name="password"
                       onChange={handleChange}
@@ -70,10 +72,11 @@ class ResetPassword extends React.Component {
                       label="Confirm Password"
                       type="password"
                     />
-
-                    <Button type="button" label="Cancel" />
-                    <Button type="submit" label="Submit" />
-                  </form>
+                    <div>
+                      <Button type="button" label="Cancel" />
+                      <Button type="submit" label="Submit" />
+                    </div>
+                  </Form>
                 )}
               </Formik>
             );

@@ -3,6 +3,10 @@ import models from './models';
 
 let sequelize;
 const dev = process.env.NODE_ENV !== 'production';
+const adminEmail = process.env.ADMIN_EMAIL;
+const adminPassword = process.env.ADMIN_PASSWORD;
+const adminFirstName = process.env.ADMIN_FIRST_NAME;
+const adminLastName = process.env.ADMIN_LAST_NAME;
 if (dev) {
   sequelize = new Sequelize('ChMS', 'postgres', 'admin', {
     host: 'localhost',
@@ -55,17 +59,23 @@ const start = async () => {
       .catch(err => {
         console.error('Unable to connect to the database:', err);
       });
-    const email = await sequelize.models.email.create({
-      address: 'couturecraigj@gmail.com'
-    });
+    const email = await sequelize.models.email
+      .findOrCreate({
+        where: { address: adminEmail }
+      })
+      .spread(email => email);
     try {
-      await sequelize.models.user.create({
-        emailId: email.id,
-        userName: 'moosecouture',
-        firstName: 'Craig',
-        lastName: 'Couture',
-        password: 'password'
-      });
+      await sequelize.models.user
+        .findOrCreate({
+          where: {
+            emailId: email.id,
+            userName: adminEmail,
+            firstName: adminFirstName,
+            lastName: adminLastName,
+            password: adminPassword
+          }
+        })
+        .spread(user => user);
       let date = Date.now();
       await sequelize.models.doc.create({
         title: 'Prayer Guide',

@@ -4,6 +4,8 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import TextInput from '../../../components/TextInput';
 import Button from '../../../components/Button';
+import Form from '../../../components/Form';
+
 import './ForgotPassword.css';
 
 const FORGOT_PASSWORD = gql`
@@ -24,7 +26,7 @@ class ForgotPassword extends React.Component {
               initialValues={{ email: '' }}
             >
               {({ values, handleChange, handleBlur, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                   <TextInput
                     name="email"
                     onChange={handleChange}
@@ -35,9 +37,11 @@ class ForgotPassword extends React.Component {
                     label="Email"
                     type="text"
                   />
-                  <Button type="button" label="Cancel" />
-                  <Button type="submit" label="Submit" />
-                </form>
+                  <div>
+                    <Button type="button" label="Cancel" />
+                    <Button type="submit" label="Submit" />
+                  </div>
+                </Form>
               )}
             </Formik>
           )}
