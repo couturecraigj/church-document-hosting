@@ -72,7 +72,8 @@ const start = async () => {
             userName: adminEmail,
             firstName: adminFirstName,
             lastName: adminLastName,
-            password: adminPassword
+            password: adminPassword,
+            admin: true
           }
         })
         .spread(user => user);

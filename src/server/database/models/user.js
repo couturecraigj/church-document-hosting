@@ -27,6 +27,10 @@ const user = (sequelize, Sequelize) => {
     },
     resetExpiry: {
       type: Sequelize.DATE
+    },
+    admin: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
   });
 
