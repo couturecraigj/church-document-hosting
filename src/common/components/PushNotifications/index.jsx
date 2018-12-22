@@ -2,7 +2,7 @@ import React from 'react';
 // import PropType from 'prop-types'
 import {withApollo} from 'react-apollo'
 import gql from 'graphql-tag'
-import styled from 'styled-components';
+import Button from '../Button'
 import {queryMe} from '../Layout'
 
 const GET_PUSHES = gql`
@@ -12,13 +12,6 @@ const GET_PUSHES = gql`
 `
 
 // const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-
-const Button = styled.button`
-  background: #ccc;
-  &:disabled {
-    background: #999;
-  }
-`;
 
 const PushNotificationButton = ({ registered, available, ...props }) => {
   if (!available) return null;

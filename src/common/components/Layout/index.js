@@ -75,7 +75,9 @@ const NavBar = ({ loggedIn = false }) => (
             return <HeaderButton onClick={onClick}>Logout</HeaderButton>;
           }}
         </Mutation>
-        <PushNotificationsButton serverApiKey={serverApiKey} />
+        <div>
+          <PushNotificationsButton serverApiKey={serverApiKey} />
+        </div>
       </React.Fragment>
     )}
   </div>
@@ -87,9 +89,57 @@ const imageList = process.env.RAZZLE_IMAGE_LIST || [];
 
 const hash = process.env.RAZZLE_FAVICON_HASH || '1';
 
+const LayoutWrapper = styled.div`
+  min-height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+const LayoutHeader = styled.div`
+  /* flex: 1; */
+  background: linear-gradient(
+    125deg,
+    #534d3b,
+    #757163 20%,
+    #757163 80%,
+    #534d3b
+  );
+  /* height: 150px; */
+  padding: 20px;
+  margin-bottom: 1em;
+  color: #000;
+  border-bottom: 2px solid #763c23;
+  & h2 {
+    filter: drop-shadow(0px 0 10px #ad9f99) drop-shadow(0px 0 5px #ad9f99);
+  }
+`;
+
+const LayoutFooter = styled.div`
+  background: linear-gradient(
+    125deg,
+    #332f23,
+    #534d3b 20%,
+    #534d3b 80%,
+    #332f23
+  );
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-top: 2px solid #763c23;
+  /* flex: 1; */
+`;
+
+const LayoutContent = styled.div`
+  flex: 5;
+  padding: 10px 0 20px;
+`;
+
 const Layout = ({ children, loggedIn }) => {
   return (
-    <div className="Layout">
+    <LayoutWrapper>
       <React.Fragment>
         <Helmet titleTemplate="%s | Crossway Church of Keene, NH">
           <meta charSet="utf-8" />
@@ -113,7 +163,7 @@ const Layout = ({ children, loggedIn }) => {
           <title>Home</title>
         </Helmet>
 
-        <div className="Layout-header">
+        <LayoutHeader>
           <NavLink to="/" exact className="Logo-link">
             {/* <div>
             <span>Home</span>
@@ -124,29 +174,32 @@ const Layout = ({ children, loggedIn }) => {
           <h2>Welcome to Church's Website</h2>
           <NavBar loggedIn={loggedIn} />
           {loggedIn && (
-            <Mutation mutation={SEND_PUSH}>
-              {sendPush => (
-                <button
-                  onClick={() =>
-                    sendPush({
-                      variables: {
-                        input: {
-                          title: 'PUSH!!',
-                          body: 'THIS IS A PUSH, YEA!!!'
+            <div>
+              <Mutation mutation={SEND_PUSH}>
+                {sendPush => (
+                  <button
+                    onClick={() =>
+                      sendPush({
+                        variables: {
+                          input: {
+                            title: 'PUSH!!',
+                            body: 'THIS IS A PUSH, YEA!!!'
+                          }
                         }
-                      }
-                    })
-                  }
-                >
-                  Send Push
-                </button>
-              )}
-            </Mutation>
+                      })
+                    }
+                  >
+                    Send Push
+                  </button>
+                )}
+              </Mutation>
+            </div>
           )}
-        </div>
-        {children}
+        </LayoutHeader>
+        <LayoutContent>{children}</LayoutContent>
+        <LayoutFooter>Created by Craig Couture</LayoutFooter>
       </React.Fragment>
-    </div>
+    </LayoutWrapper>
   );
 };
 

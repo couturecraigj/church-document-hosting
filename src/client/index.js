@@ -9,7 +9,6 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 
 const stripeKey = process.env.RAZZLE_STRIPE_PUBLISHABLE_KEY;
-console.log(stripeKey);
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', e => {

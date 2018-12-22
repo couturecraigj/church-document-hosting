@@ -5,7 +5,7 @@ import CardElement from './CardElement';
 import styled from 'styled-components';
 // import TextInput from '../../components/TextInput';
 // import Button from '../../components/Button';
-import './Offering.css';
+
 const Container = styled.div`
   display: flex;
   align-items: center;
