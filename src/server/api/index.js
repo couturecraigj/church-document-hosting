@@ -6,6 +6,7 @@ import signup from './signup';
 import push from './push';
 import subscription from './subscription';
 import login from './login';
+import image from './image';
 
 const preppedCors = cors({
   origin: true,
@@ -36,5 +37,6 @@ app.use('/push', push);
 app.use('/subscription', subscription);
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/image', image);
 
 export default app;

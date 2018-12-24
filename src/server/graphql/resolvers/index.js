@@ -5,6 +5,9 @@ const resolverMap = {
   Query: {
     hello: () => 'World!',
     me: (parent, args, context) => context.req.user,
+    getUser: (parent, args, context) =>
+      context.db.models.user.findOne({ where: { id: args.id } }),
+    getUsers: (parent, args, context) => context.db.models.user.findAll(),
     getDocuments: (parent, args, context) => context.db.models.doc.findAll(),
     getDocumentsByDate: (parent, args, context) =>
       context.db.models.doc.findByDate(),
@@ -12,6 +15,8 @@ const resolverMap = {
       context.db.models.doc.findOne({ where: { id: args.id } })
   },
   Mutation: {
+    createUser: (parent, args, context) =>
+      context.db.models.user.createUser(args.input, context),
     getPushes: async (parent, args, context) =>
       context.db.models.subscription.getPushes(args, context),
     sendPush: async (parent, args, context) =>
@@ -148,8 +153,12 @@ const resolverMap = {
     }
   },
   UserType: {
+    name: (parent, args, context) => `${parent.firstName} ${parent.lastName}`,
     email: (parent, args, context) =>
-      context.db.models.email.findOne({ where: { id: parent.emailId } })
+      context.db.models.email.findOne({ where: { id: parent.emailId } }),
+    img: (parent, args, context) => ({
+      uri: `/api/image/${parent.id}`
+    })
   }
 };
 

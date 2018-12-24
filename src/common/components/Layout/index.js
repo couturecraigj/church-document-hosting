@@ -11,6 +11,8 @@ const ME = gql`
   query Me {
     me {
       id
+      firstName
+      admin
     }
   }
 `;
@@ -52,13 +54,16 @@ const HeaderButton = styled.button`
   }
 `;
 
-const NavBar = ({ loggedIn = false }) => (
+const NavBar = ({ loggedIn = false, name }) => (
   <div className="Layout-navlinks">
     <HeaderLink activeClassName="active" to="/documents">
       Documents
     </HeaderLink>
     <HeaderLink activeClassName="active" to="/offering">
       Offering
+    </HeaderLink>
+    <HeaderLink activeClassName="active" to="/user/list">
+      Users
     </HeaderLink>
     {!loggedIn ? (
       <HeaderLink activeClassName="active" to="/account/login">
@@ -75,6 +80,9 @@ const NavBar = ({ loggedIn = false }) => (
             return <HeaderButton onClick={onClick}>Logout</HeaderButton>;
           }}
         </Mutation>
+        <HeaderLink activeClassName="active" to="/me">
+          {name}
+        </HeaderLink>
         <div>
           <PushNotificationsButton serverApiKey={serverApiKey} />
         </div>
@@ -137,7 +145,7 @@ const LayoutContent = styled.div`
   padding: 10px 0 20px;
 `;
 
-const Layout = ({ children, loggedIn }) => {
+const Layout = ({ children, loggedIn, name, id }) => {
   return (
     <LayoutWrapper>
       <React.Fragment>
@@ -172,7 +180,7 @@ const Layout = ({ children, loggedIn }) => {
             {/* <img src={Logo} className="Layout-logo" alt="logo" /> */}
           </NavLink>
           <h2>Welcome to Church's Website</h2>
-          <NavBar loggedIn={loggedIn} />
+          <NavBar loggedIn={loggedIn} name={name} id={id} />
           {loggedIn && (
             <div>
               <Mutation mutation={SEND_PUSH}>
@@ -211,7 +219,14 @@ const DynamicLayout = ({ children }) => (
         console.error(error);
         return <div>ERROR</div>;
       }
-      return <Layout loggedIn={data.me !== null}>{children}</Layout>;
+      const props = {
+        loggedIn: data.me !== null
+      };
+      if (data.me) {
+        props.name = data.me.firstName;
+        props.id = data.me.id;
+      }
+      return <Layout {...props}>{children}</Layout>;
     }}
   </Query>
 );

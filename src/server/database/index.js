@@ -59,13 +59,14 @@ const start = async () => {
       .catch(err => {
         console.error('Unable to connect to the database:', err);
       });
+
     const email = await sequelize.models.email
       .findOrCreate({
         where: { address: adminEmail }
       })
       .spread(email => email);
     try {
-      await sequelize.models.user
+      const user = await sequelize.models.user
         .findOrCreate({
           where: {
             emailId: email.id,
@@ -77,6 +78,13 @@ const start = async () => {
           }
         })
         .spread(user => user);
+      const image = await sequelize.models.image.createImage(
+        user.id,
+        '/uploads/craig-couture.jpg',
+        { width: 4000, height: 2667, alt: 'The Family' }
+      );
+      user.imageId = image.id;
+      await user.save();
       let date = Date.now();
       await sequelize.models.doc.create({
         title: 'Prayer Guide',

@@ -7,6 +7,10 @@ import ResetPassword from '../pages/Login/ResetPassword';
 import Offering from '../pages/Offering';
 import Documents from '../pages/Documents';
 import Document from '../pages/Documents/Single';
+import UserList from '../pages/User/List';
+import User from '../pages/User/Single';
+import NewUser from '../pages/User/New';
+import Me from '../pages/Me';
 import Layout from '../components/Layout';
 import AddToHomeScreen from '../components/AddToHomeScreen';
 
@@ -18,6 +22,10 @@ const App = () => (
       <Route exact path="/documents" component={Documents} />
       <Route exact path="/document/:id" component={Document} />
       <Route exact path="/offering" component={Offering} />
+      <Route exact path="/user/new" component={NewUser} />
+      <Route exact path="/user/list" component={UserList} />
+      <Route exact path="/user/:id" component={User} />
+      <Route exact path="/me" component={Me} />
       <Route
         exact
         path="/account/password-reset/:token"

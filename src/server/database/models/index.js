@@ -3,13 +3,17 @@ import subscription from './subscription';
 import email from './email';
 import session from './session';
 import doc from './doc';
+import phone from './phone';
+import image from './image';
 
 const models = {
   User: user,
   Subscription: subscription,
   Doc: doc,
   Email: email,
-  Session: session
+  Session: session,
+  Phone: phone,
+  Image: image
 };
 
 /**

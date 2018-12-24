@@ -74,7 +74,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "dotenv": "^6.1.0",
     "png-to-ico": "^2.0.1",
-    "sharp": "^0.21.0",
+    "sharp": "^0.21.1",
     "web-push": "^3.3.3"
   }
 }

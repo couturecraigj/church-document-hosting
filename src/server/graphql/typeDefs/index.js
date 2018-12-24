@@ -174,9 +174,17 @@ const typeDefs = gql`
     members: [UserType!]!
   }
 
+  type ImageType {
+    uri: String!
+    width: Int!
+    height: Int!
+    alt: String
+  }
+
   type UserType {
     id: ID!
     name: String!
+    img: ImageType
     gender: Gender
     firstName: String
     lastName: String!
@@ -188,13 +196,25 @@ const typeDefs = gql`
     anniversary: Date
     birthday: Date
     memberSince: Date
-    joined: Date
+    admin: Boolean!
+    firstVisit: Date
     father: UserType
     mother: UserType
     children: [UserType!]!
     groups: [UserGroupType!]!
     prayerRequests: [PrayerRequestType!]!
     journal: [JournalEntryType!]!
+  }
+
+  input UserInput {
+    firstName: String
+    lastName: String!
+    email: String
+    phone: String
+    anniversary: Date
+    birthday: Date
+    memberSince: Date
+    firstVisit: Date
   }
 
   type JournalEntryType {
@@ -331,11 +351,15 @@ const typeDefs = gql`
   type Query {
     hello: String!
     me: UserType
+    getUsers: [UserType!]!
+    getUser(id: ID!): UserType!
     getDocuments: [DocumentType!]!
     getDocumentsByDate: [DocumentMapType!]!
     getDocument(id: ID!): DocumentType!
   }
   type Mutation {
+    createUser(input: UserInput!): UserType!
+    updateUser(id: ID!, input: UserInput!): UserType!
     sendGift(
       token: TokenInput!
       amount: Float!
