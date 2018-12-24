@@ -156,9 +156,12 @@ const resolverMap = {
     name: (parent, args, context) => `${parent.firstName} ${parent.lastName}`,
     email: (parent, args, context) =>
       context.db.models.email.findOne({ where: { id: parent.emailId } }),
-    img: (parent, args, context) => ({
-      uri: `/api/image/${parent.id}`
-    })
+    img: (parent, args, context) => {
+      if (!parent.imageId) return null;
+      return {
+        uri: `/api/image/${parent.id}`
+      };
+    }
   }
 };
 
