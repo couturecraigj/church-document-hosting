@@ -48,17 +48,23 @@ if (dev) {
 // });
 
 const start = async () => {
+  await sequelize
+    .authenticate()
+    .then(async () => {
+      await models(sequelize, Sequelize);
+      await sequelize.sync({ force: true });
+    })
+    .catch(err => {
+      console.error('Unable to connect to the database:', err);
+    });
+
+  return sequelize;
+};
+const build = async () => {
+  console.log('building database');
   if (!sequelize.started) {
     sequelize.started = true;
-    await sequelize
-      .authenticate()
-      .then(async () => {
-        await models(sequelize, Sequelize);
-        await sequelize.sync({ force: true });
-      })
-      .catch(err => {
-        console.error('Unable to connect to the database:', err);
-      });
+    await start();
 
     const email = await sequelize.models.email
       .findOrCreate({
@@ -109,9 +115,14 @@ const start = async () => {
         content: '<div><h1>YOU DID IT</h1></div>',
         date: new Date(date)
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
+  console.log('Finished');
   return sequelize;
 };
 
 export default start;
+
+export { build };
