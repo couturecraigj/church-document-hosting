@@ -47,12 +47,12 @@ if (dev) {
 //   // storage: 'path/to/database.sqlite'
 // });
 
-const start = async () => {
+const start = async force => {
   await sequelize
     .authenticate()
     .then(async () => {
       await models(sequelize, Sequelize);
-      await sequelize.sync({ force: true });
+      await sequelize.sync(force);
     })
     .catch(err => {
       console.error('Unable to connect to the database:', err);
@@ -62,63 +62,61 @@ const start = async () => {
 };
 const build = async () => {
   console.log('building database');
-  if (!sequelize.started) {
-    sequelize.started = true;
-    await start();
+  await start({ force: true });
 
-    const email = await sequelize.models.email
+  const email = await sequelize.models.email
+    .findOrCreate({
+      where: { address: adminEmail }
+    })
+    .spread(email => email);
+  try {
+    const user = await sequelize.models.user
       .findOrCreate({
-        where: { address: adminEmail }
+        where: {
+          emailId: email.id,
+          userName: adminEmail,
+          firstName: adminFirstName,
+          lastName: adminLastName,
+          password: adminPassword,
+          admin: true
+        }
       })
-      .spread(email => email);
-    try {
-      const user = await sequelize.models.user
-        .findOrCreate({
-          where: {
-            emailId: email.id,
-            userName: adminEmail,
-            firstName: adminFirstName,
-            lastName: adminLastName,
-            password: adminPassword,
-            admin: true
-          }
-        })
-        .spread(user => user);
-      const image = await sequelize.models.image.createImage(
-        user.id,
-        '/uploads/craig-couture.jpg',
-        { width: 4000, height: 2667, alt: 'The Family' }
-      );
-      user.imageId = image.id;
-      await user.save();
-      let date = Date.now();
-      await sequelize.models.doc.create({
-        title: 'Prayer Guide',
-        content: '<div><h1>YOU DID IT</h1></div>',
-        date: new Date(date)
-      });
-      await sequelize.models.doc.create({
-        title: 'Bulletin',
-        content: '<div><h1>YOU DID IT</h1></div>',
-        date: new Date(date)
-      });
+      .spread(user => user);
+    const image = await sequelize.models.image.createImage(
+      user.id,
+      '/uploads/craig-couture.jpg',
+      { width: 4000, height: 2667, alt: 'The Family' }
+    );
+    user.imageId = image.id;
+    await user.save();
+    let date = Date.now();
+    await sequelize.models.doc.create({
+      title: 'Prayer Guide',
+      content: '<div><h1>YOU DID IT</h1></div>',
+      date: new Date(date)
+    });
+    await sequelize.models.doc.create({
+      title: 'Bulletin',
+      content: '<div><h1>YOU DID IT</h1></div>',
+      date: new Date(date)
+    });
 
-      date = new Date(date - 10000000000).getTime();
+    date = new Date(date - 10000000000).getTime();
 
-      await sequelize.models.doc.create({
-        title: 'Prayer Guide',
-        content: '<div><h1>YOU DID IT</h1></div>',
-        date: new Date(date)
-      });
-      await sequelize.models.doc.create({
-        title: 'Bulletin',
-        content: '<div><h1>YOU DID IT</h1></div>',
-        date: new Date(date)
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await sequelize.models.doc.create({
+      title: 'Prayer Guide',
+      content: '<div><h1>YOU DID IT</h1></div>',
+      date: new Date(date)
+    });
+    await sequelize.models.doc.create({
+      title: 'Bulletin',
+      content: '<div><h1>YOU DID IT</h1></div>',
+      date: new Date(date)
+    });
+  } catch (error) {
+    console.error(error);
   }
+
   console.log('Finished');
   return sequelize;
 };
