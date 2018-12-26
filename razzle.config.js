@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const isHeroku = require('is-heroku');
-// const modifyBuilder = require('razzle-plugin-pwa').default;
+const modifyBuilder = require('razzle-plugin-pwa').default;
 
 const getFileHash = path => {
   var crypto = require('crypto');
@@ -22,52 +22,58 @@ const getFileHash = path => {
   return hash.read();
 };
 
-// const pwaConfig = {
-//   swDest: '/sw.js',
-//   clientsClaim: true,
-//   skipWaiting: true,
-//   runtimeCaching: [
-//     {
-//       urlPattern: new RegExp('https://www.mysite.co'),
-//       handler: 'networkFirst'
-//     }
-//   ]
-// };
+const pwaConfig = {
+  swDest: '/sw.js',
+  clientsClaim: true,
+  skipWaiting: true,
+  runtimeCaching: [
+    {
+      urlPattern: new RegExp('https://www.mysite.co'),
+      handler: 'networkFirst'
+    }
+  ]
+};
 
-// const manifestConfig = {
-//   filename: '/manifest.json',
-//   name: 'Razzle App',
-//   short_name: 'Razzle',
-//   description: 'Another Razzle App',
-//   orientation: 'portrait',
-//   display: 'fullscreen',
-//   start_url: '.',
-//   theme_color: '#ffffff',
-//   background_color: '#ffffff',
-//   related_applications: [],
-//   icons: [
-//     {
-//       src: require.resolve(
-//         path.join(__dirname, 'public', 'images', 'icons-192.png')
-//       ),
-//       sizes: '192x192',
-//       type: 'image/png'
-//     },
-//     {
-//       src: require.resolve(
-//         path.join(__dirname, 'public', 'images', 'icons-512.png')
-//       ),
-//       sizes: '512x512',
-//       type: 'image/png'
-//     }
-//   ]
-// };
+const manifestConfig = {
+  filename: '/manifest.json',
+  name: 'Razzle App',
+  short_name: 'Razzle',
+  description: 'Another Razzle App',
+  orientation: 'portrait',
+  display: 'fullscreen',
+  start_url: '.',
+  theme_color: '#ffffff',
+  background_color: '#ffffff',
+  related_applications: [],
+  icons: [
+    {
+      src: require.resolve(
+        path.join(__dirname, 'public', 'images', 'icons-192.png')
+      ),
+      sizes: '192x192',
+      type: 'image/png'
+    },
+    {
+      src: require.resolve(
+        path.join(__dirname, 'public', 'images', 'icons-512.png')
+      ),
+      sizes: '512x512',
+      type: 'image/png'
+    }
+  ]
+};
 
 // const modify = modifyBuilder({ pwaConfig, manifestConfig });
 const TodoWebpackPlugin = require('todo-webpack-plugin');
 
 module.exports = {
   modify: (config, { target, dev }, webpack) => {
+    if (dev)
+      config.plugins.push(
+        new TodoWebpackPlugin({
+          console: true
+        })
+      );
     config.module.rules[1].test = /\.(js|jsx)$/;
     const isDefinePlugin = plugin => plugin.constructor.name === 'DefinePlugin';
     const indexDefinePlugin = config.plugins.findIndex(isDefinePlugin);
@@ -98,11 +104,6 @@ module.exports = {
     }
 
     config.plugins[indexDefinePlugin] = new webpack.DefinePlugin(newDefs);
-    config.plugins.push(
-      new TodoWebpackPlugin({
-        console: true
-      })
-    );
 
     return config;
   }
