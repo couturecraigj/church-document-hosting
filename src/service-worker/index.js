@@ -135,7 +135,6 @@ async function mutations(event) {
 }
 
 self.addEventListener('fetch', function(event) {
-  sendMessageToClient({ msg: 'fetch received' });
   /**
    * TODO: Set this up to prevent unauthorized requests to other urls
    */
@@ -169,6 +168,14 @@ self.addEventListener('fetch', function(event) {
         } else return result;
       })()
     );
+  }
+});
+
+self.addEventListener('message', async function(event) {
+  if (event.data.type === 'page-transition') {
+    console.log(event.data.path);
+    const cache = await caches.open(CACHE_NAME);
+    cache.add(event.data.path);
   }
 });
 
