@@ -7,10 +7,12 @@ class ServiceWorker extends React.Component {
       sendMessages: true
     });
   }
-  sendMessage = message => {
+  sendMessage = async message => {
     const { sendMessages } = this.state;
     if (sendMessages && 'serviceWorker' in navigator) {
-      navigator.serviceWorker.controller.postMessage(message);
+      await navigator.serviceWorker.ready;
+      if (navigator.serviceWorker.controller)
+        navigator.serviceWorker.controller.postMessage(message);
     }
   };
   render() {

@@ -5,14 +5,23 @@ const iOSShareBase64 =
 const closeBase64 =
   'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAAl0lEQVR4Ae2TMQ6DMBTFfA+kHqkSUmcKgd5/BIaEqsOfWqyILgx4jewl/3FxSm74q8ODlcQeL1Za769sFNKOXthYaBAS5Wci9ExH4AlG143xKxH6k0oiMbluTEQi9B5BEpW6fNtHH+CfQCEd13PcxVF9IHnC9V6us1qvTsjVScJ1SeicM53MbKZBaFlkcYmZO473aTghF2/X9XbQ39L36gAAAABJRU5ErkJggg==';
 
+const isIos = () => {
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(userAgent);
+};
+// Detects if device is in standalone mode
+const isInStandaloneMode = () =>
+  'standalone' in window.navigator && window.navigator.standalone;
+
 class AddToHomeScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible:
-        typeof window === 'undefined' ? false : navigator.standalone === false
+  state = {
+    visible: false
+  };
+  componentDidMount() {
+    this.setState({
+      visible: isIos() && !isInStandaloneMode()
       // visible: true
-    };
+    });
   }
 
   handleClose = () => {
@@ -37,20 +46,23 @@ class AddToHomeScreen extends Component {
           style={{
             height: 100,
             padding: 10,
+            fontSize: '10pt',
             background: '#F5F5F4',
             width: '280px',
             border: '1px solid #333',
             lineHeight: '30px'
           }}
         >
-          Install this web app on your iPhone for the best experience. It's
-          easy, just tap
+          <span>
+            Install this web app on your iPhone for the best experience. It's
+            easy, just tap{' '}
+          </span>
           <img
             alt="ios share button"
             style={{ verticalAlign: 'top' }}
             src={`data:image/png;base64,${iOSShareBase64}`}
-          />{' '}
-          and then "Add to Home Screen".
+          />
+          <span> and then "Add to Home Screen".</span>
         </div>
         <div
           style={{

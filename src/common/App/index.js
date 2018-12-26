@@ -10,6 +10,7 @@ import Document from '../pages/Documents/Single';
 import UserList from '../pages/User/List';
 import User from '../pages/User/Single';
 import NewUser from '../pages/User/New';
+import Fallback from '../pages/Fallback';
 import ServiceWorker from '../components/ServiceWorker';
 import Me from '../pages/Me';
 import Layout from '../components/Layout';
@@ -38,6 +39,7 @@ const App = () => (
               path="/account/password-reset/:token"
               component={ResetPassword}
             />
+            <Route component={Fallback} />
           </Switch>
           <AddToHomeScreen />
         </Layout>

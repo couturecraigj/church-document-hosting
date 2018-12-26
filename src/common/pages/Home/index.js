@@ -1,5 +1,8 @@
 import loadable from 'loadable-components';
-
-export default loadable(() =>
-  import(/* webpackChunkName: "home-page" */ './Home')
+import Fallback from '../Fallback';
+export default loadable(
+  () => import(/* webpackChunkName: "home-page" */ './Home'),
+  {
+    ErrorComponent: Fallback
+  }
 );

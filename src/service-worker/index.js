@@ -34,11 +34,11 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('install', function(event) {
-  // event.waitUntil(
-  //   caches.open(CACHE_NAME).then(function(cache) {
-  //     return cache.addAll(["/", "/account/login", "/account/signup"]);
-  //   })
-  // );
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(['/', '/fallback']);
+    })
+  );
 });
 
 async function sendMessageToClient(message) {
@@ -158,10 +158,14 @@ self.addEventListener('fetch', function(event) {
         }
         const cache = await caches.open(CACHE_NAME);
         const response = await cache.match(event.request);
-        const result = fetch(event.request).then(async res => {
-          await cache.put(event.request, res.clone());
-          return res;
-        });
+        const result = fetch(event.request)
+          .then(async res => {
+            await cache.put(event.request, res.clone());
+            return res;
+          })
+          .catch(() => {
+            return cache.match('/fallback');
+          });
         if (response) {
           console.log('[Service worker] response in cache');
           return response;
