@@ -191,7 +191,9 @@ const Layout = ({ children, loggedIn, name, id }) => {
                         variables: {
                           input: {
                             title: 'PUSH!!',
-                            body: 'THIS IS A PUSH, YEA!!!'
+                            body: 'THIS IS A PUSH, YEA!!!',
+                            // eslint-disable-next-line
+                            url: `${location.origin}/document/1`
                           }
                         }
                       })

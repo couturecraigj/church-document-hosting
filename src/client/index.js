@@ -24,7 +24,14 @@ window.addEventListener('appinstalled', evt => {
 });
 
 if ('serviceWorker' in navigator) {
+  const receiveMessage = event => {
+    // eslint-disable-next-line no-restricted-globals
+    if (![location.origin, 'http://localhost:3001'].includes(event.origin))
+      return;
+    console.log(event.data);
+  };
   navigator.serviceWorker.register('/sw.js');
+  navigator.serviceWorker.addEventListener('message', receiveMessage);
 }
 loadComponents().then(() => {
   const currentState = window.__APOLLO_STATE__;

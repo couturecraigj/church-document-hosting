@@ -335,6 +335,7 @@ const typeDefs = gql`
   input PushInput {
     title: String!
     body: String!
+    url: String!
   }
 
   input KeysInput {

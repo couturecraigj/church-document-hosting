@@ -1,6 +1,10 @@
 import PushNotifications from 'node-pushnotifications';
 import { Router } from 'express';
 
+/**
+ * TODO: Remove all the API sections and move everything to graphql
+ */
+
 const mailTo = process.env.MAIL_TO;
 
 const settings = {

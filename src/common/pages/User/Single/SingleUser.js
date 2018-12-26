@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { Link, Redirect } from 'react-router-dom';
+// import { Link, Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import ErrorMessage from '../../../components/ErrorMessage';

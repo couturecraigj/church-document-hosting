@@ -24,13 +24,14 @@ const subscription = (sequelize, Sequelize) => {
   };
 
   Subscription.send = async function(args, context) {
-    // TODO: Send push notifications
     const subscriptions = await Subscription.findAll();
     const results = await context.req.sendPush(
       subscriptions.map(({ subscription }) => JSON.parse(subscription)),
       args
     );
-
+    /**
+     * TODO: Set it up for Apple Push as well
+     */
     for (const message of results.find(result => {
       return result.method === 'webPush';
     }).message) {
