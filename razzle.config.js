@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const isHeroku = require('is-heroku');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const modifyBuilder = require('razzle-plugin-pwa').default;
 
 const getFileHash = path => {
@@ -104,6 +105,13 @@ module.exports = {
     }
 
     config.plugins[indexDefinePlugin] = new webpack.DefinePlugin(newDefs);
+    if (target !== 'node') {
+      config.plugins.push(
+        new ManifestPlugin({
+          fileName: 'asset-manifest.json'
+        })
+      );
+    }
 
     return config;
   }

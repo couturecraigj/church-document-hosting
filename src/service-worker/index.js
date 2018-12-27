@@ -5,7 +5,7 @@
 import gql from 'graphql-tag';
 import localForage from 'localforage';
 import pTimeout from 'p-timeout';
-
+const assetsManifestPromise = fetch('/asset-manifest.json');
 const acceptableRequestOrigins = [
   location.origin,
   'http://localhost:3001',
@@ -35,8 +35,18 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll(['/', '/fallback']);
+    caches.open(CACHE_NAME).then(async function(cache) {
+      let assetArray = [];
+      try {
+        const assetsManifest = await assetsManifestPromise;
+        const assetMap = await assetsManifest.json();
+        const mapRegex = /\.map$/m;
+        assetArray = Object.values(assetMap).filter(v => !mapRegex.test(v));
+        console.log(assetArray);
+      } catch (error) {
+        console.error(error);
+      }
+      return cache.addAll(['/', '/fallback', ...assetArray]);
     })
   );
 });

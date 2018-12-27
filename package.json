@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"razzle start\" \"npm run watch:sw\"",
     "build": "razzle build",
-    "prebuild": "npm run build:icons && npm run build:manifest && npm run build:db && npm run build:sw",
+    "prebuild": "npm run build:icons && npm run build:manifest && npm run build:db && npm run build:sw && npm run build:sw",
+    "postbuild": "",
     "build:icons": "node utilities/build-icons.js",
     "build:sw": "gulp",
     "watch:sw": "gulp watch",
@@ -92,6 +93,7 @@
     "todo-webpack-plugin": "^1.9.9",
     "web-push": "^3.3.3",
     "webpack": "^4.28.2",
+    "webpack-manifest-plugin": "^2.0.4",
     "webpack-stream": "^5.2.1"
   }
 }
