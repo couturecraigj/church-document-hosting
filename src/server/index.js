@@ -12,18 +12,14 @@ import config from './config';
 import createClient from '../common/apollo';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
-const subscriptions = [];
 const server = express();
-server.set('addSubscription', subscription => {
-  subscriptions.push(subscription);
-});
-server.set('subscriptionList', subscriptions);
 config(server);
 
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', async (req, res) => {
+    console.log('reaching here');
     const context = {};
     const sheet = new ServerStyleSheet();
 

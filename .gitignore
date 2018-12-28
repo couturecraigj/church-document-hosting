@@ -3,6 +3,7 @@ logs
 npm-debug.log*
 .DS_Store
 
+main.py
 coverage
 node_modules
 build

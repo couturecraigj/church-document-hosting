@@ -3,6 +3,7 @@ import graphql from '../graphql';
 import database from '../database';
 import api from '../api';
 import sgMail from '@sendgrid/mail';
+// import { sendMessageToDataScience } from '../services/sending-message-to-data-science';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const fromEmail = process.env.DEFAULT_FROM_EMAIL;
@@ -59,12 +60,13 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const config = app => {
   app.use(async (req, res, next) => {
     req.db = await dbPromise;
+    // await sendMessageToDataScience({ data: 'data' });
     console.log('DATABASE CREATED');
     next();
   });
   app.use((req, res, next) =>
     session({
-      secret: process.env.SESSION_SECRET,
+      secret: process.env.SESSION_SECRET || 'super secret',
       name: 'sessionId',
       resave: false,
       store: new SequelizeStore({
@@ -75,38 +77,44 @@ const config = app => {
     })(req, res, next)
   );
   app.use(async (req, res, next) => {
-    let userId;
-    if (req.session && req.session.userId) userId = req.session.userId;
-    if (userId)
-      req.user = await req.db.models.user.findOne({ where: { id: userId } });
-    req.sendEmail = message =>
-      sgMail.send({
-        from: fromEmail,
-        ...message
-      });
-    req.sendEmails = message =>
-      sgMail.sendMultiple({
-        from: fromEmail,
-        ...message
-      });
-    req.sendPush = (...args) => push.send(...args);
-    req.logout = () =>
-      new Promise((resolve, reject) => {
-        req.session.userId = undefined;
-        req.session.save(err => {
-          if (err) reject(err);
-          resolve();
+    try {
+      let userId;
+      if (req.session && req.session.userId) userId = req.session.userId;
+      if (userId)
+        req.user = await req.db.models.user.findOne({ where: { id: userId } });
+      req.sendEmail = message =>
+        sgMail.send({
+          from: fromEmail,
+          ...message
         });
-      });
-    req.login = userId =>
-      new Promise((resolve, reject) => {
-        req.session.userId = userId;
-        req.session.save(err => {
-          if (err) reject(err);
-          resolve();
+      req.sendEmails = message =>
+        sgMail.sendMultiple({
+          from: fromEmail,
+          ...message
         });
-      });
-    next();
+      req.sendPush = (...args) => push.send(...args);
+
+      req.logout = () =>
+        new Promise((resolve, reject) => {
+          req.session.userId = undefined;
+          req.session.save(err => {
+            if (err) reject(err);
+            resolve();
+          });
+        });
+      req.login = userId =>
+        new Promise((resolve, reject) => {
+          req.session.userId = userId;
+          req.session.save(err => {
+            if (err) reject(err);
+            resolve();
+          });
+        });
+      next();
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
   });
 
   graphql(app);
